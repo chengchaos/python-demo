@@ -7,15 +7,39 @@ from flask import Flask, render_template, url_for, redirect, session, abort
 from flask import request
 import requests as requests
 import json as json
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+import config
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
+
+# 配置文件实例化
+app.config.from_object(config)
+
+db = SQLAlchemy(app)
+
+
+# 创建数据库
+# db.create_all()
+
+class Book(db.Model):
+    __tablename__ = "book"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(50), nullable=False)
+    storage_time = db.Column(db.DateTime, default=datetime.now)
+
+db.create_all()
+
+app.logger.debug("__name__ => ", __name__)
+
 # Set the secret key to some random bytes. Keep this really secret!
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 USER_KEY_REDIS = "login-user"
 USER_KEY_SESSION = "user"
 
-redis_helper = redis.StrictRedis(host="192.168.56.103", port=6379, db=0)
+redis_helper = redis.StrictRedis(host="127.0.0.1", port=6379, db=0, password='DvBrBY8yiii_7')
 
 
 @app.route("/say-hai", methods=['GET'])
@@ -33,8 +57,10 @@ def user_login_view():
     app.logger.info('info as user_login_view!')
     app.logger.warning('warning as user_login_view!')
     app.logger.error('error as user_login_view!')
-
-    return render_template("user-login.html")
+    admin = "admin"
+    random = "1379"
+    # 使用 **locals() 可以传入全部的本地变量。
+    return render_template("user-login.html", **locals())
 
 
 @app.route("/user-login-auth.asp", methods=['POST'])
@@ -93,7 +119,7 @@ def index():
 
 
 def get_some_data():
-    url = "http://192.168.56.1:8080/some-data"
+    url = "http://127.0.0.1:8080/some-data"
     headers = {"content-type": "application/json"}
     request_data = {"name": "chengchao", "age": 28}
 
@@ -116,4 +142,4 @@ def some_data():
 
 
 if __name__ == "__main__":
-    app.run(host="192.168.56.1", port=8080, debug=True)
+    app.run(host="127.0.0.1", port=8080, debug=True)

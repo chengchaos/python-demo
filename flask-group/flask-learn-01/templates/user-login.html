@@ -7,16 +7,22 @@
     <link rel="stylesheet" href='{{ url_for("static", filename="style.css") }}' type="text/css" />
 </head>
 <body>
+{# 这是注释，注意：Jinja2 的注释是一个花括号！#}
 
     <div>
         <form name="form1" id="form1" method="post" action="/user-login-auth.asp">
             <div>
                 <span>账号：</span>
-                <input type="text" name="username" value="admin" />
+                <input type="text" name="username" value="{{ admin }}" />
             </div>
             <div>
                 <span>口令：</span>
                 <input type="password" name="password" value="Ab1234++" />
+            </div>
+            <div>
+                <span>测试：</span>
+                <input type="text" name="code" value="" />
+                <span>{{  random }}</span>
             </div>
             <div>
                 <input type="submit" value="登录" />

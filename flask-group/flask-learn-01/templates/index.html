@@ -11,5 +11,12 @@
 <a href="/user-log-out.asp">登出</a>
 
 <p>{{ name }}</p>
+
+{% if name %}
+<h1>{{ name }} 存在</h1>
+{% else %}
+<h1>不存在</h1>
+{% endif %}
+
 </body>
 </html>
