@@ -4,7 +4,6 @@ from flask import url_for
 
 import pymysql
 
-
 app = Flask(__name__)
 
 
@@ -23,7 +22,6 @@ def get_user_name(name):
 @app.route("/news/<int:id>")
 def list_news(id):
     return "接收到的 ID 为： %s" % id
-
 
 
 if __name__ == "__main__":

@@ -1,4 +1,5 @@
 # -*- coding:utf-8 -*-
+from typing import List
 
 import pymysql
 
@@ -24,7 +25,7 @@ def test_db_01():
     print(type(data))
     print(data)
 
-    users = []
+    users: List[User] = []
     for row in data:
         username = row[0]
         password = row[1]
