@@ -31,6 +31,16 @@ def insert_batch(db_conn):
     db_conn.commit()
 
 
+def get_sites(name):
+    db_sql = "SELECT name, url FROM site WHERE name = %s"
+    db_cursor = conn.cursor()
+    db_cursor.execute(db_sql, (name, ))
+    db_result = db_cursor.fetchall()
+    db_cursor.close()
+    return db_result
+
+
+
 if __name__ == "__main__":
     print(conn)
     cursor = conn.cursor()
