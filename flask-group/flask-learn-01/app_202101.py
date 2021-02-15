@@ -29,7 +29,7 @@ class Book(db.Model):
     title = db.Column(db.String(50), nullable=False)
     storage_time = db.Column(db.DateTime, default=datetime.now)
 
-db.create_all()
+# db.create_all()
 
 app.logger.debug("__name__ => ", __name__)
 
